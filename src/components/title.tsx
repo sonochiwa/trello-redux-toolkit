@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Input } from '../global-style';
 import { useAppDispatch } from '../hook';
-import { removeList, editTitle } from '../store/board-slice';
+import { removeList, updateTitle } from '../store/board-slice';
 
 const Text = styled.div`
   cursor: pointer;
@@ -13,7 +13,7 @@ const Text = styled.div`
   font-weight: bold;
 `;
 
-const Form = styled.form`
+const Wrapper = styled.form`
   display: flex;
   margin-bottom: 10px;
 `;
@@ -48,14 +48,14 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
     dispatch(removeList(id));
   };
 
-  const onEditTitle = (data: object) => {
-    dispatch(editTitle({ id, ...data }))
-    setOpen(false)
-    reset()
+  const onUpdateTitle = (data: object) => {
+    dispatch(updateTitle({ id, ...data }));
+    setOpen(false);
+    reset();
   };
 
   return (
-    <Form onBlur={() => setOpen(false)} onSubmit={handleSubmit(onEditTitle)}>
+    <Wrapper onBlur={() => { setOpen(false); reset(); }} onSubmit={handleSubmit(onUpdateTitle)}>
       {open ? (
         <Input autoFocus {...register("title")} placeholder='enter title text' />
       ) : (
@@ -65,7 +65,7 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
         </>
       )
       }
-    </Form >
+    </Wrapper>
   );
 };
 

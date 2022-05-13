@@ -44,7 +44,7 @@ const boardSlice = createSlice({
       }
     },
 
-    editTitle(state, action) {
+    updateTitle(state, action) {
       state.lists = state.lists.map(list => list.id === action.payload.id ? { ...list, ...action.payload } : list)
     },
 
@@ -109,7 +109,7 @@ export const {
   addCard,
   removeCard,
   editCard,
-  editTitle,
+  updateTitle,
   editDescription,
   sendComment,
   editComment,
