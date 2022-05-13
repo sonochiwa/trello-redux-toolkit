@@ -1,43 +1,57 @@
-interface IComments {
+interface IInitialState {
+  username?: string;
+  lists: ILists[];
+};
+
+interface ILists {
   id: string;
-  text: string;
-}
+  title: string;
+  cards: ICards[];
+};
 
 interface ICards {
   id: string;
   title: string;
   description: string;
   comments: IComments[];
-}
+};
 
-interface ILists {
+interface IComments {
   id: string;
-  title: string;
-  cards: ICards[];
-}
+  text: string;
+};
 
-interface IState {
-  username?: string;
-  lists: ILists[];
-}
-
-const initialState: IState = {
+const initialState: IInitialState = {
   lists: [
     {
       id: '0',
-      title: 'Todo',
+      title: 'TODO',
       cards: [
         {
           id: '0',
           title: 'default card',
-          description: 'my init description',
+          description: 'default description',
           comments: [
-            { id: '0', text: 'first comment' },
-            { id: '1', text: 'second comment' },
+            { id: '0', text: 'default comment' },
           ]
         }],
     },
+    {
+      id: '1',
+      title: 'In Progress',
+      cards: [],
+    },
+    {
+      id: '2',
+      title: 'Testing',
+      cards: [],
+    },
+    {
+      id: '3',
+      title: 'Done',
+      cards: [],
+    },
   ],
-}
+};
 
 export default initialState;

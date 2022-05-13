@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import initialState from "./initial-state";
+import { createSlice } from '@reduxjs/toolkit';
+import initialState from './initial-state';
 import { v4 as uuidv4 } from 'uuid';
 
 const boardSlice = createSlice({
@@ -97,10 +97,23 @@ const boardSlice = createSlice({
 
     login(state, action) {
       state.username = action.payload.username
-    }
+    },
+
   },
 });
 
-export const { addList, removeList, addCard, removeCard, editCard, login, editTitle, editDescription, sendComment, editComment, deleteComment } = boardSlice.actions;
+export const {
+  login,
+  addList,
+  removeList,
+  addCard,
+  removeCard,
+  editCard,
+  editTitle,
+  editDescription,
+  sendComment,
+  editComment,
+  deleteComment,
+} = boardSlice.actions;
 
 export default boardSlice.reducer;
