@@ -22,8 +22,8 @@ const CardWrapper = styled.div`
 
 interface IList {
   id: string;
-  title: string;
   listTitle: string;
+  title: string;
 };
 
 const List: React.FC<IList> = ({ id, listTitle, title }) => {
