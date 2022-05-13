@@ -31,22 +31,23 @@ const Name = () => {
 
   const onSubmit = (data: object) => {
     dispatch(login((data)))
-  }
+  };
 
-  if (username)
+  if (username) {
     return null;
-
-  return (
-    <Overlay>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register("username")}
-          placeholder="Ваше имя"
-        />
-        <Button type="submit">Отправить</Button>
-      </Form>
-    </Overlay>
-  );
+  } else {
+    return (
+      <Overlay>
+        <Form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            {...register("username")}
+            placeholder="enter username"
+          />
+          <Button type="submit">Submit</Button>
+        </Form>
+      </Overlay>
+    );
+  };
 };
 
 export default Name;
