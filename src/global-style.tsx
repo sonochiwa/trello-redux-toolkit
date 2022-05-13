@@ -1,4 +1,4 @@
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
 * {
@@ -9,22 +9,17 @@ export const GlobalStyle = createGlobalStyle`
 
   body {
     color: #303030;
+    background-color: #252e4c;
     font-family: cursive, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: #252e4c;
-    /* background-image: url(https://media.prod.mdn.mozit.cloud/attachments/2012/07/09/3469/6587a382ffb2c944462a6b110b079496/no-dimensions-or-ratio.svg); */
-    min-height: 100vh;
-    background-size: 100% 100%;
-};
+  };
 `;
 
 export const Input = styled.input`
   box-sizing: border-box;
   height: 30px;
-  padding: 0 8px;
   width: 100%;
+  padding: 0 8px;
   border: none;
   border-radius: 5px;
   outline: 1px solid lightgray;

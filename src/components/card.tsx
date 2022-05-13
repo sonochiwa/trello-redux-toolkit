@@ -1,14 +1,14 @@
-import { Button, Input } from "../global-style";
-import styled from "styled-components";
-import { useState } from "react";
-import { removeCard, editCard } from "../store/board-slice";
-import { useAppDispatch, useAppSelector } from "../hook";
-import { useForm } from "react-hook-form";
-import Modal from "./modal/modal";
+import { Input } from '../global-style';
+import styled from 'styled-components';
+import { useState } from 'react';
+import { removeCard, editCard } from '../store/board-slice';
+import { useAppDispatch, useAppSelector } from '../hook';
+import { useForm } from 'react-hook-form';
+import Modal from './modal/modal';
 
 const CardWrapper = styled.form`
   position: relative;
-`
+`;
 
 const Text = styled.div`
   height: 30px;
@@ -19,7 +19,7 @@ const Text = styled.div`
   border-radius: 5px;
   color: white;
   padding: 0 8px;
-`
+`;
 
 const EditBtn = styled.div`
   transition: .3s;
@@ -33,8 +33,8 @@ const EditBtn = styled.div`
   cursor: pointer;
   &:hover {
       color: #ffffff;
-  }
-`
+  };
+`;
 
 const DelBtn = styled.div`
   transition: .3s;
@@ -47,8 +47,8 @@ const DelBtn = styled.div`
   color: #c3c3c3;
   &:hover {
       color: red;
-  }
-`
+  };
+`;
 
 interface ICard {
   id: string;
@@ -62,22 +62,22 @@ interface ICard {
 const Card: React.FC<ICard> = ({ id, title, listId, listTitle, description, comments }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const { cards = [] } = useAppSelector(state => state.board.lists.find((list) => list.id === id)) || {}
-  
+  const { cards = [] } = useAppSelector(state => state.board.lists.find((list) => list.id === id)) || {};
+
   const { register, handleSubmit, reset } = useForm();
-  const [toggle, setToggle] = useState(false)
+  const [toggle, setToggle] = useState(false);
 
   const handleCardDelete = () => {
     dispatch(removeCard({
       id,
     }))
-  }
+  };
 
   const handleEditCard = (data: object) => {
     dispatch(editCard({ id, ...data }))
     setOpen(false)
     reset()
-  }
+  };
 
   return (
     <>
@@ -96,10 +96,9 @@ const Card: React.FC<ICard> = ({ id, title, listId, listTitle, description, comm
           )
         }
       </CardWrapper>
-      {toggle && <Modal id={id} listId={listId} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={()=> setToggle(false)} />}
-      {/* {toggle && <Modal />} */}
+      {toggle && <Modal id={id} listId={listId} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={() => setToggle(false)} />}
     </>
   )
-}
+};
 
 export default Card;

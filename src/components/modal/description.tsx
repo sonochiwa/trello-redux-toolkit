@@ -50,7 +50,7 @@ const Button = styled.button`
 interface IDescription {
   id: string;
   description: string;
-}
+};
 
 const Descripton: React.FC<IDescription> = ({ id, description }) => {
 
@@ -61,9 +61,9 @@ const Descripton: React.FC<IDescription> = ({ id, description }) => {
 
 
   const handleEditDescription = (data: object) => {
-    dispatch(editDescription({ id, ...data }))
-    setOpen(false)
-    reset()
+    dispatch(editDescription({ id, ...data }));
+    setOpen(false);
+    reset();
   }
 
   return (

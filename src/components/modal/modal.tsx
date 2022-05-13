@@ -76,33 +76,14 @@ interface Modal {
   listTitle: string;
   handleClose: any;
   comments: any;
-  // description: string;
-}
+};
 
-// const Modal: React.FC<IModal> = ({ id, title, listId, listTitle, handleClose, description }: any) => {
 const Modal = ({ id, title, listId, listTitle, handleClose, description, comments }: any) => {
 
   const state = useAppSelector(state => state.board);
-
-  // const { state, dispatch }: any = useContext(AppContext);
-  // const list: any = state.lists[listId];
-  // const { user, title, description, comments }: any = state.lists[listId].cards[id];
-
-
-  // function setDescription(description: string) {
-  //   dispatch({
-  //     type: ActionTypes.UPDATE_CARD,
-  //     payload: {
-  //       id,
-  //       listId,
-  //       description
-  //     }
-  //   });
-  // };
-
   const closeModal = (e: any) => {
     if (e.key === 'Escape') {
-      handleClose()
+      handleClose();
     };
   };
 
@@ -118,17 +99,9 @@ const Modal = ({ id, title, listId, listTitle, handleClose, description, comment
         </Header>
         <Main>
           <Author>author: {state.username}</Author>
-
-          {/* <Descripton text={description} setDescription={setDescription} /> */}
           <Descripton description={description} id={id} />
-          {/* <Descripton /> */}
-
-          {/* <Activitys user={user} listId={listId} cardId={id} /> */}
           <Activitys listId={listId} cardId={id} />
           {comments.map((comment: any) => <Comments key={comment.id} id={comment.id} text={comment.text} listId={listId} cardId={id} />)}
-
-          {/* {comments.map((comment: any) => <p key={id}>{comment.text}</p>)} */}
-          {/* {comments.map(comment: any) => <Comments />} */}
         </Main>
       </Content>
     </Wrapper>

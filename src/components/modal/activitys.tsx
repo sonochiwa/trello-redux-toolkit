@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Input } from '../../global-style';
@@ -53,15 +52,14 @@ const Hr = styled.div`
 `;
 
 
-const Activitys = ({ user, listId, cardId, id }: any) => {
-  // const [text, setText] = useState('');
-  const { handleSubmit, reset, register } = useForm()
+const Activitys = ({ cardId }: any) => {
+  const { handleSubmit, reset, register } = useForm();
   const dispatch = useAppDispatch();
 
   const handleSendComment = (data: object) => {
     dispatch(sendComment({ cardId, ...data }))
     reset()
-  }
+  };
 
   return (
     <Activity onSubmit={handleSubmit(handleSendComment)}>

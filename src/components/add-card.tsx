@@ -22,10 +22,9 @@ const AddCard: React.FC<IAddCard> = ({ id }) => {
   const dispatch = useAppDispatch();
 
   const AddNewCard = (data: object) => {
-    console.log(data)
     dispatch(addCard({ id, ...data }))
     reset()
-  }
+  };
 
   return (
     <Form onSubmit={handleSubmit(AddNewCard)}>

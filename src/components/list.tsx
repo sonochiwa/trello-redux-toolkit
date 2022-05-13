@@ -1,8 +1,8 @@
-import styled from "styled-components";
-import AddCard from "./add-card";
-import Title from "./title";
-import Card from "./card";
-import { useAppSelector } from "../hook";
+import styled from 'styled-components';
+import AddCard from './add-card';
+import Title from './title';
+import Card from './card';
+import { useAppSelector } from '../hook';
 
 const Wrapper = styled.div`
   height: 100%;
@@ -18,13 +18,13 @@ const CardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
-`
+`;
 
 interface IList {
   id: string;
   title: string;
   listTitle: string;
-}
+};
 
 const List: React.FC<IList> = ({ id, listTitle, title }) => {
   const { cards = [] } = useAppSelector(state => state.board.lists.find((list) => list.id === id)) || {}

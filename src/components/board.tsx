@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import AddList from './add-list';
 import List from './list';
-import { useAppSelector } from '../hook'
+import { useAppSelector } from '../hook';
 
 const Wrapper = styled.div`
   padding: 10px;

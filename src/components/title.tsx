@@ -5,7 +5,6 @@ import { Input } from '../global-style';
 import { useAppDispatch } from '../hook';
 import { removeList, editTitle } from '../store/board-slice';
 
-
 const Text = styled.div`
   cursor: pointer;
   padding: 0 5px;
@@ -38,7 +37,7 @@ const Delete = styled.div`
 interface ITitle {
   id: string
   title: string;
-}
+};
 
 const Title: React.FC<ITitle> = ({ id, title }) => {
   const [open, setOpen] = useState(false);
@@ -50,10 +49,10 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
   };
 
   const onEditTitle = (data: object) => {
-    dispatch(editTitle({id, ...data}))
+    dispatch(editTitle({ id, ...data }))
     setOpen(false)
     reset()
-  }
+  };
 
   return (
     <Form onBlur={() => setOpen(false)} onSubmit={handleSubmit(onEditTitle)}>

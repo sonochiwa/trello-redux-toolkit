@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { useAppDispatch } from '../hook'
+import { useAppDispatch } from '../hook';
 import { addList } from '../store/board-slice';
 import { Button } from '../global-style';
 

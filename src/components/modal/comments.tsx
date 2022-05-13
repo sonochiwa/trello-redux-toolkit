@@ -50,22 +50,22 @@ interface IComments {
   text: string;
   listId: string;
   cardId: string;
-}
+};
 
-const Comments: React.FC<IComments> = ({ listId, cardId, id, text }: any) => {
+const Comments: React.FC<IComments> = ({ cardId, id, text }: any) => {
   const [toggle, setToggle] = useState(false);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm();
 
   const handleDeleteComment = (data: object) => {
     dispatch(deleteComment({ id, cardId }))
-  }
+  };
 
   const handleEditComment = (data: object) => {
     dispatch(editComment({ id, cardId, ...data }))
     setToggle(false)
     reset()
-  }
+  };
 
   return (
     <Wrapper>
