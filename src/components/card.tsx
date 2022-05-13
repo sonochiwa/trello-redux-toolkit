@@ -1,8 +1,8 @@
 import { Input } from '../global-style';
 import styled from 'styled-components';
 import { useState } from 'react';
-import { removeCard, editCard } from '../store/board-slice';
-import { useAppDispatch, useAppSelector } from '../hook';
+import { deleteCard, updateCard } from '../store/board-slice';
+import { useAppDispatch } from '../hook';
 import { useForm } from 'react-hook-form';
 import Modal from './modal/modal';
 
@@ -62,43 +62,44 @@ interface ICard {
 const Card: React.FC<ICard> = ({ id, title, listId, listTitle, description, comments }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
-  const { cards = [] } = useAppSelector(state => state.board.lists.find((list) => list.id === id)) || {};
-
   const { register, handleSubmit, reset } = useForm();
   const [toggle, setToggle] = useState(false);
 
-  const handleCardDelete = () => {
-    dispatch(removeCard({
-      id,
-    }))
+  const onDeleteCard = () => {
+    dispatch(deleteCard({ id }));
   };
 
-  const handleEditCard = (data: object) => {
-    dispatch(editCard({ id, ...data }))
-    setOpen(false)
-    reset()
+  const onUpdateCard = (data: object) => {
+    dispatch(updateCard({ id, ...data }));
+    setOpen(false);
+    reset();
   };
 
   return (
     <>
-      <CardWrapper onSubmit={handleSubmit(handleEditCard)}>
+      <CardWrapper onSubmit={handleSubmit(onUpdateCard)}>
         {open ?
           (
-            <Input {...register("card")} onBlur={() => setOpen(false)} autoFocus placeholder="enter new card text" maxLength={20} />
+            <Input
+              {...register("card")}
+              onBlur={() => setOpen(false)}
+              autoFocus
+              placeholder="enter new card text"
+              maxLength={20} />
           )
           :
           (
             <>
               <Text onClick={() => setToggle(true)}>{title}</Text>
               <EditBtn title="edit this card" onClick={() => setOpen(true)}>edit</EditBtn>
-              <DelBtn title="delete this card" onClick={handleCardDelete}>&times;</DelBtn>
+              <DelBtn title="delete this card" onClick={onDeleteCard}>&times;</DelBtn>
             </>
           )
         }
       </CardWrapper>
       {toggle && <Modal id={id} listId={listId} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={() => setToggle(false)} />}
     </>
-  )
+  );
 };
 
 export default Card;

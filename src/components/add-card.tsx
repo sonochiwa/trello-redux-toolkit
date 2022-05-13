@@ -22,8 +22,8 @@ const AddCard: React.FC<IAddCard> = ({ id }) => {
   const dispatch = useAppDispatch();
 
   const AddNewCard = (data: object) => {
-    dispatch(addCard({ id, ...data }))
-    reset()
+    dispatch(addCard({ id, ...data }));
+    reset();
   };
 
   return (
@@ -44,10 +44,8 @@ const AddCard: React.FC<IAddCard> = ({ id }) => {
         name="title"
         placeholder='enter card text'
       />
-
       <Button type="submit" >add card</Button>
       {errors.title?.message && <p>{errors.title?.message}</p>}
-
     </Form>
   );
 };

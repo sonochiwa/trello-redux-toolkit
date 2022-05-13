@@ -28,13 +28,13 @@ const boardSlice = createSlice({
       }
     },
 
-    removeCard(state, action) {
+    deleteCard(state, action) {
       for (const list of state.lists) {
         list.cards = list.cards.filter(card => card.id !== action.payload.id)
       }
     },
 
-    editCard(state, action) {
+    updateCard(state, action) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.id) {
@@ -107,8 +107,8 @@ export const {
   addList,
   removeList,
   addCard,
-  removeCard,
-  editCard,
+  deleteCard,
+  updateCard,
   updateTitle,
   editDescription,
   sendComment,
