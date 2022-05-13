@@ -53,13 +53,12 @@ const DelBtn = styled.div`
 interface ICard {
   id: string;
   title: string;
-  listId: string;
   listTitle: string;
   description: string;
   comments: any;
 };
 
-const Card: React.FC<ICard> = ({ id, title, listId, listTitle, description, comments }) => {
+const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) => {
   const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm();
@@ -97,7 +96,7 @@ const Card: React.FC<ICard> = ({ id, title, listId, listTitle, description, comm
           )
         }
       </CardWrapper>
-      {toggle && <Modal id={id} listId={listId} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={() => setToggle(false)} />}
+      {toggle && <Modal id={id} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={() => setToggle(false)} />}
     </>
   );
 };

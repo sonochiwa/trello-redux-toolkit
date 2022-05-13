@@ -51,8 +51,11 @@ const Hr = styled.div`
   margin-top: 18px;
 `;
 
+interface IActivitys {
+  cardId: string;
+}
 
-const Activitys = ({ cardId }: any) => {
+const Activitys: React.FC<IActivitys> = ({ cardId }) => {
   const { handleSubmit, reset, register } = useForm();
   const dispatch = useAppDispatch();
 

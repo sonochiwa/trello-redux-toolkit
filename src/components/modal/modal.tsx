@@ -2,13 +2,8 @@ import styled from 'styled-components';
 import Activitys from './activitys';
 import Comments from './comments';
 import Descripton from './description';
-import './modal.css';
-import { useContext } from "react";
 import { useAppSelector } from '../../hook';
-import initialState from '../../store/initial-state';
-
-// import AppContext from "../../state/app-context";
-// import ActionTypes from "../../state/action-types";
+import './modal.css';
 
 const Wrapper = styled.div`
   position: fixed;
@@ -62,23 +57,14 @@ const Author = styled.div`
 
 interface IModal {
   id: string;
-  listId: string;
   title: string;
   listTitle: string;
   handleClose: any;
   description: string;
+  comments: any[];
 }
 
-interface Modal {
-  id: string;
-  title: string;
-  listId: string;
-  listTitle: string;
-  handleClose: any;
-  comments: any;
-};
-
-const Modal = ({ id, title, listId, listTitle, handleClose, description, comments }: any) => {
+const Modal: React.FC<IModal> = ({ id, title, listTitle, handleClose, description, comments }) => {
 
   const state = useAppSelector(state => state.board);
   const closeModal = (e: any) => {
@@ -100,8 +86,8 @@ const Modal = ({ id, title, listId, listTitle, handleClose, description, comment
         <Main>
           <Author>author: {state.username}</Author>
           <Descripton description={description} id={id} />
-          <Activitys listId={listId} cardId={id} />
-          {comments.map((comment: any) => <Comments key={comment.id} id={comment.id} text={comment.text} listId={listId} cardId={id} />)}
+          <Activitys cardId={id} />
+          {comments.map((comment: any) => <Comments key={comment.id} id={comment.id} text={comment.text} cardId={id} />)}
         </Main>
       </Content>
     </Wrapper>

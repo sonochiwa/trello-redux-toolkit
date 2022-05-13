@@ -9,7 +9,7 @@ const Wrapper = styled.div`
   display: flex;
 `;
 
-const Avatar = styled.img`
+const Avatar = styled.div`
   min-width: 30px;
   max-width: 30px;
   min-height: 30px;
@@ -47,24 +47,23 @@ const Text = styled.div`
 
 interface IComments {
   id: string;
-  text: string;
-  listId: string;
   cardId: string;
+  text: string;
 };
 
-const Comments: React.FC<IComments> = ({ cardId, id, text }: any) => {
+const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
   const [toggle, setToggle] = useState(false);
   const dispatch = useAppDispatch();
   const { register, handleSubmit, reset } = useForm();
 
-  const handleDeleteComment = (data: object) => {
-    dispatch(deleteComment({ id, cardId }))
+  const handleDeleteComment = () => {
+    dispatch(deleteComment({ id, cardId }));
   };
 
   const handleEditComment = (data: object) => {
-    dispatch(editComment({ id, cardId, ...data }))
-    setToggle(false)
-    reset()
+    dispatch(editComment({ id, cardId, ...data }));
+    setToggle(false);
+    reset();
   };
 
   return (

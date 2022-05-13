@@ -28,7 +28,7 @@ const Textarea = styled.textarea`
   outline: 0;
   &:active{
     outline: 0;
-  }
+  };
 `;
 
 const Button = styled.button`
@@ -53,12 +53,9 @@ interface IDescription {
 };
 
 const Descripton: React.FC<IDescription> = ({ id, description }) => {
-
   const [open, setOpen] = useState(false);
-
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useAppDispatch();
-
 
   const handleEditDescription = (data: object) => {
     dispatch(editDescription({ id, ...data }));
