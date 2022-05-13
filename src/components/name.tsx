@@ -16,7 +16,7 @@ const Overlay = styled.div`
 
 const Form = styled.form`
   display: flex;
-  margin: 150px auto 0;
+  margin: 200px auto 0;
   padding: 8px;
   width: 400px;
   border-radius: 3px;
