@@ -63,8 +63,7 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
           <Text onClick={() => setOpen(true)}>{title}</Text>
           <Delete onClick={handleRemoveList}>&#10006;</Delete>
         </>
-      )
-      }
+      )}
     </Wrapper>
   );
 };
