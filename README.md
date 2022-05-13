@@ -2,7 +2,6 @@
 
 https://trello-redux-toolkit-j8exm4ovr-sonochiwa.vercel.app
 
-
 ## Available Scripts
 
 In the project directory, you can run:
