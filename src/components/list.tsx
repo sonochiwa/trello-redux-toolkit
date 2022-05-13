@@ -37,7 +37,6 @@ const List: React.FC<IList> = ({ id, listTitle, title }) => {
           cards.map((card) => (<Card key={card.id} listId={id} listTitle={listTitle} {...card} />))
         }
       </CardWrapper>
-
       <AddCard id={id} />
     </Wrapper>
   );
