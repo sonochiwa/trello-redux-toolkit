@@ -9,11 +9,11 @@ const Wrapper = styled.div`
   padding-right: 10px;
 `;
 
-const AddList = () => {
+const AddList: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleAddList = () => {
-    dispatch(addList({title: '[Title]'}));
+    dispatch(addList({ title: '[Title]' }));
   };
 
   return (

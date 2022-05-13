@@ -10,7 +10,7 @@ const Wrapper = styled.div`
   height: 100%;
 `;
 
-const Board = () => {
+const Board: React.FC = () => {
   const lists = useAppSelector(state => state.board.lists);
 
   return (

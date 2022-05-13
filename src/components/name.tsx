@@ -24,7 +24,7 @@ const Form = styled.form`
   grid-gap: 10px;
 `;
 
-const Name = () => {
+const Name: React.FC = () => {
   const dispatch = useAppDispatch();
   const username = useAppSelector(state => state.board.username);
   const { register, handleSubmit } = useForm();
