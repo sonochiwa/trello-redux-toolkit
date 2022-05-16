@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Input } from '../global-style';
 import { useAppDispatch } from '../hook';
+import { useToggle } from '../lib/hooks';
 import { removeList, updateTitle } from '../store/board-slice';
 
 const Text = styled.div`
@@ -40,8 +40,8 @@ interface ITitle {
 };
 
 const Title: React.FC<ITitle> = ({ id, title }) => {
-  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const { toggle, setTrue, setFalse } = useToggle(false);
   const { register, handleSubmit, reset } = useForm();
 
   const handleRemoveList = () => {
@@ -50,17 +50,17 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
 
   const onUpdateTitle = (data: object) => {
     dispatch(updateTitle({ id, ...data }));
-    setOpen(false);
+    setFalse();
     reset();
   };
 
   return (
-    <Wrapper onBlur={() => { setOpen(false); reset(); }} onSubmit={handleSubmit(onUpdateTitle)}>
-      {open ? (
+    <Wrapper onBlur={() => { setFalse(); reset(); }} onSubmit={handleSubmit(onUpdateTitle)}>
+      {toggle ? (
         <Input autoFocus {...register("title")} placeholder='enter title text' />
       ) : (
         <>
-          <Text onClick={() => setOpen(true)}>{title}</Text>
+          <Text onClick={setTrue}>{title}</Text>
           <Delete onClick={handleRemoveList}>&#10006;</Delete>
         </>
       )}

@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Input } from '../../global-style';
 import { useAppDispatch } from '../../hook';
+import { useToggle } from '../../lib/hooks';
 import { deleteComment, editComment } from '../../store/board-slice';
 
 const Wrapper = styled.div`
@@ -52,8 +52,8 @@ interface IComments {
 };
 
 const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
-  const [toggle, setToggle] = useState(false);
   const dispatch = useAppDispatch();
+  const { toggle, setTrue, setFalse } = useToggle(false);
   const { register, handleSubmit, reset } = useForm();
 
   const handleDeleteComment = () => {
@@ -62,7 +62,7 @@ const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
 
   const handleEditComment = (data: object) => {
     dispatch(editComment({ id, cardId, ...data }));
-    setToggle(false);
+    setFalse();
     reset();
   };
 
@@ -75,14 +75,14 @@ const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
             <Input {...register("edited")} placeholder="enter comment" autoFocus />
             <ButtonsWrapper>
               <Button onClick={handleSubmit(handleEditComment)}>save</Button>
-              <Button onClick={() => { setToggle(false); reset() }}>close</Button>
+              <Button onClick={() => { setFalse(); reset() }}>close</Button>
             </ButtonsWrapper>
           </>
         ) : (
           <>
             <Text>{text}</Text>
             <ButtonsWrapper>
-              <Button onClick={() => setToggle(true)}>edit</Button>
+              <Button onClick={setTrue}>edit</Button>
               <Button onClick={handleDeleteComment}>delete</Button>
             </ButtonsWrapper>
           </>

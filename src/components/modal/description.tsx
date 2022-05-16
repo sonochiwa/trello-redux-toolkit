@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hook';
+import { useToggle } from '../../lib/hooks';
 import { editDescription } from '../../store/board-slice';
 
 const Description = styled.form`
@@ -53,20 +53,20 @@ interface IDescription {
 };
 
 const Descripton: React.FC<IDescription> = ({ id, description }) => {
-  const [open, setOpen] = useState(false);
+  const { toggle, setTrue, setFalse } = useToggle(false);
   const { register, handleSubmit, reset } = useForm();
   const dispatch = useAppDispatch();
 
   const handleEditDescription = (data: object) => {
     dispatch(editDescription({ id, ...data }));
-    setOpen(false);
+    setFalse();
     reset();
-  }
+  };
 
   return (
     <Description onSubmit={handleSubmit(handleEditDescription)}>
       Description
-      {open ? (
+      {toggle ? (
         <>
           <Textarea
             {...register("description")}
@@ -75,11 +75,11 @@ const Descripton: React.FC<IDescription> = ({ id, description }) => {
           />
           <>
             <Button type="submit">Save</Button>
-            <Button onClick={() => { setOpen(false); reset() }}>Close</Button>
+            <Button onClick={() => { setFalse(); reset() }}>Close</Button>
           </>
         </>
       ) : (
-        <Text onClick={() => setOpen(true)}>
+        <Text onClick={setTrue}>
           {description || "Add a more detailed description..."}
         </Text>
       )

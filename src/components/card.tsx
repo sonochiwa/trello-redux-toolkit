@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { deleteCard, updateCard } from '../store/board-slice';
 import { useAppDispatch } from '../hook';
 import { useForm } from 'react-hook-form';
+import { useToggle } from '../lib/hooks';
 import Modal from './modal/modal';
 
 const CardWrapper = styled.form`
@@ -59,10 +60,10 @@ interface ICard {
 };
 
 const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) => {
-  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
+  const editor = useToggle(false);
+  const { toggle, setTrue, setFalse } = useToggle(false);
   const { register, handleSubmit, reset } = useForm();
-  const [toggle, setToggle] = useState(false);
 
   const onDeleteCard = () => {
     dispatch(deleteCard({ id }));
@@ -70,33 +71,45 @@ const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) 
 
   const onUpdateCard = (data: object) => {
     dispatch(updateCard({ id, ...data }));
-    setOpen(false);
+    editor.setFalse();
     reset();
   };
 
   return (
     <>
       <CardWrapper onSubmit={handleSubmit(onUpdateCard)}>
-        {open ?
+        {editor.toggle ?
           (
             <Input
               {...register("card")}
-              onBlur={() => setOpen(false)}
+              onBlur={editor.setFalse}
               autoFocus
               placeholder="enter new card text"
-              maxLength={20} />
+              maxLength={20}
+            />
           )
           :
           (
             <>
-              <Text onClick={() => setToggle(true)}>{title}</Text>
-              <EditBtn title="edit this card" onClick={() => setOpen(true)}>edit</EditBtn>
+              <Text onClick={setTrue}>{title}</Text>
+              <EditBtn title="edit this card" onClick={editor.setTrue}>edit</EditBtn>
               <DelBtn title="delete this card" onClick={onDeleteCard}>&times;</DelBtn>
             </>
           )
         }
       </CardWrapper>
-      {toggle && <Modal id={id} title={title} description={description} comments={comments} listTitle={listTitle} handleClose={() => setToggle(false)} />}
+      {
+        toggle && (
+          <Modal
+            id={id}
+            title={title}
+            description={description}
+            comments={comments}
+            listTitle={listTitle}
+            handleClose={setFalse}
+          />
+        )
+      }
     </>
   );
 };

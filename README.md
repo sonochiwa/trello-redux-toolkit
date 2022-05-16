@@ -1,6 +1,6 @@
 # Open in Vercel
 
-https://trello-redux-toolkit-qopm0vnpf-sonochiwa.vercel.app/
+https://trello-redux-toolkit.vercel.app/
 
 ## Available Scripts
 

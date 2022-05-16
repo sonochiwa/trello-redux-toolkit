@@ -35,19 +35,19 @@ const Name: React.FC = () => {
 
   if (username) {
     return null;
-  } else {
-    return (
-      <Overlay>
-        <Form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            {...register("username")}
-            placeholder="enter username"
-          />
-          <Button type="submit">Submit</Button>
-        </Form>
-      </Overlay>
-    );
-  };
+  }
+  
+  return (
+    <Overlay>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          {...register("username")}
+          placeholder="enter username"
+        />
+        <Button type="submit">Submit</Button>
+      </Form>
+    </Overlay>
+  );
 };
 
 export default Name;
