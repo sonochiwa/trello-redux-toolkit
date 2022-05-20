@@ -1,12 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import initialState from './initial-state';
 import { v4 as uuidv4 } from 'uuid';
+// import { ILogin, IDeleteList } from './action-types';
 
 const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
-    addList(state, action) {
+
+    // login(state, action: PayloadAction<ILogin>) {
+    login(state, action) {
+      state.username = action.payload.username
+    },
+
+    addList(state, action: PayloadAction<any>) {
       state.lists.push({
         ...action.payload,
         id: uuidv4(),
@@ -14,7 +21,8 @@ const boardSlice = createSlice({
       });
     },
 
-    removeList(state, action) {
+    // deleteList(state, action: PayloadAction<IDeleteList>) {
+    deleteList(state, action) {
       state.lists = state.lists.filter(list => list.id !== action.payload);
     },
 
@@ -34,7 +42,7 @@ const boardSlice = createSlice({
       }
     },
 
-    updateCard(state, action) {
+    updateCard(state, action: PayloadAction<any>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.id) {
@@ -44,11 +52,11 @@ const boardSlice = createSlice({
       }
     },
 
-    updateTitle(state, action) {
+    updateTitle(state, action: PayloadAction<any>) {
       state.lists = state.lists.map(list => list.id === action.payload.id ? { ...list, ...action.payload } : list)
     },
 
-    editDescription(state, action) {
+    updateDescription(state, action: PayloadAction<any>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.id) {
@@ -58,7 +66,7 @@ const boardSlice = createSlice({
       }
     },
 
-    sendComment(state, action) {
+    addComment(state, action: PayloadAction<any>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.cardId) {
@@ -73,7 +81,7 @@ const boardSlice = createSlice({
       }
     },
 
-    deleteComment(state, action) {
+    deleteComment(state, action: PayloadAction<any>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.cardId) {
@@ -83,7 +91,7 @@ const boardSlice = createSlice({
       }
     },
 
-    editComment(state, action) {
+    updateComment(state, action: PayloadAction<any>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           for (const comment of card.comments) {
@@ -95,24 +103,20 @@ const boardSlice = createSlice({
       }
     },
 
-    login(state, action) {
-      state.username = action.payload.username
-    },
-
   },
 });
 
 export const {
   login,
   addList,
-  removeList,
+  deleteList,
   addCard,
   deleteCard,
   updateCard,
   updateTitle,
-  editDescription,
-  sendComment,
-  editComment,
+  updateDescription,
+  addComment,
+  updateComment,
   deleteComment,
 } = boardSlice.actions;
 

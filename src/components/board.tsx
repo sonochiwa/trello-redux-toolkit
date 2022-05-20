@@ -3,13 +3,6 @@ import AddList from './add-list';
 import List from './list';
 import { useAppSelector } from '../hook';
 
-const Wrapper = styled.div`
-  padding: 10px;
-  display: flex;
-  width: 100%;
-  height: 100%;
-`;
-
 const Board: React.FC = () => {
   const lists = useAppSelector(state => state.board.lists);
 
@@ -22,5 +15,12 @@ const Board: React.FC = () => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  display: flex;
+  padding: 10px;
+  width: 100%;
+  height: 100%;
+`;
 
 export default Board;

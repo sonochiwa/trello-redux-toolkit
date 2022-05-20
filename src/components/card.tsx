@@ -1,55 +1,10 @@
 import { Input } from '../global-style';
 import styled from 'styled-components';
-import { useState } from 'react';
 import { deleteCard, updateCard } from '../store/board-slice';
 import { useAppDispatch } from '../hook';
 import { useForm } from 'react-hook-form';
 import { useToggle } from '../lib/hooks';
 import Modal from './modal/modal';
-
-const CardWrapper = styled.form`
-  position: relative;
-`;
-
-const Text = styled.div`
-  height: 30px;
-  line-height: 30px;
-  width: 100%;
-  background-color: #252e4c;
-  cursor: pointer;
-  border-radius: 5px;
-  color: white;
-  padding: 0 8px;
-`;
-
-const EditBtn = styled.div`
-  transition: .3s;
-  position: absolute;
-  top: 0;
-  height: 30px;
-  line-height: 30px;
-  right: 27px;
-  text-align: right;
-  color: #c3c3c3;
-  cursor: pointer;
-  &:hover {
-      color: #ffffff;
-  };
-`;
-
-const DelBtn = styled.div`
-  transition: .3s;
-  position: absolute;
-  top: 0;
-  right: 6px;
-  text-align: right;
-  cursor: pointer;
-  font-size: 25px;
-  color: #c3c3c3;
-  &:hover {
-      color: red;
-  };
-`;
 
 interface ICard {
   id: string;
@@ -113,5 +68,49 @@ const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) 
     </>
   );
 };
+
+const CardWrapper = styled.form`
+  position: relative;
+`;
+
+const Text = styled.div`
+  cursor: pointer;
+  height: 30px;
+  line-height: 30px;
+  width: 100%;
+  background-color: #252e4c;
+  border-radius: 5px;
+  color: white;
+  padding: 0 8px;
+`;
+
+const EditBtn = styled.div`
+  cursor: pointer;
+  transition: .3s;
+  position: absolute;
+  top: 0;
+  height: 30px;
+  line-height: 30px;
+  right: 27px;
+  text-align: right;
+  color: #c3c3c3;
+  &:hover {
+      color: #ffffff;
+  };
+`;
+
+const DelBtn = styled.div`
+  cursor: pointer;
+  transition: .3s;
+  position: absolute;
+  top: 0;
+  right: 6px;
+  text-align: right;
+  font-size: 25px;
+  color: #c3c3c3;
+  &:hover {
+      color: red;
+  };
+`;
 
 export default Card;

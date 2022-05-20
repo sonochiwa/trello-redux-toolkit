@@ -1,25 +1,4 @@
-interface IInitialState {
-  username?: string;
-  lists: ILists[];
-};
-
-interface ILists {
-  id: string;
-  title: string;
-  cards: ICards[];
-};
-
-interface ICards {
-  id: string;
-  title: string;
-  description: string;
-  comments: IComments[];
-};
-
-interface IComments {
-  id: string;
-  text: string;
-};
+import { IInitialState } from './action-types'
 
 const initialState: IInitialState = {
   lists: [

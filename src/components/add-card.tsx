@@ -4,15 +4,6 @@ import { Input, Button } from '../global-style';
 import { useAppDispatch } from '../hook';
 import { addCard } from '../store/board-slice';
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 8px;
-  padding-top: 8px;
-  border-top: 1px solid gray;
-  grid-gap: 8px;
-`;
-
 interface IAddCard {
   id: string
 };
@@ -49,5 +40,14 @@ const AddCard: React.FC<IAddCard> = ({ id }) => {
     </Form>
   );
 };
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid gray;
+  grid-gap: 8px;
+`;
 
 export default AddCard;

@@ -3,12 +3,6 @@ import { useAppDispatch } from '../hook';
 import { addList } from '../store/board-slice';
 import { Button } from '../global-style';
 
-const Wrapper = styled.div`
-  min-width: 254px;
-  max-width: 254px;
-  padding-right: 10px;
-`;
-
 const AddList: React.FC = () => {
   const dispatch = useAppDispatch();
 
@@ -22,5 +16,11 @@ const AddList: React.FC = () => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.div`
+  min-width: 254px;
+  max-width: 254px;
+  padding-right: 10px;
+`;
 
 export default AddList;

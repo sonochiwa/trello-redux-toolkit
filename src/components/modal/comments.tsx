@@ -3,7 +3,54 @@ import styled from 'styled-components';
 import { Input } from '../../global-style';
 import { useAppDispatch } from '../../hook';
 import { useToggle } from '../../lib/hooks';
-import { deleteComment, editComment } from '../../store/board-slice';
+import { deleteComment, updateComment } from '../../store/board-slice';
+
+interface IComments {
+  id: string;
+  cardId: string;
+  text: string;
+};
+
+const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
+  const dispatch = useAppDispatch();
+  const { toggle, setTrue, setFalse } = useToggle(false);
+  const { register, handleSubmit, reset } = useForm();
+
+  const handleDeleteComment = () => {
+    dispatch(deleteComment({ id, cardId }));
+  };
+
+  const handleUpdateComment = (data: object) => {
+    dispatch(updateComment({ id, cardId, ...data }));
+    setFalse();
+    reset();
+  };
+
+  return (
+    <Wrapper>
+      <Avatar />
+      <Container onSubmit={handleSubmit(handleUpdateComment)}>
+        {toggle ? (
+          <>
+            <Input {...register("edited")} placeholder="enter comment" autoFocus />
+            <ButtonsWrapper>
+              <Button onClick={handleSubmit(handleUpdateComment)}>save</Button>
+              <Button onClick={() => { setFalse(); reset() }}>close</Button>
+            </ButtonsWrapper>
+          </>
+        ) : (
+          <>
+            <Text>{text}</Text>
+            <ButtonsWrapper>
+              <Button onClick={setTrue}>edit</Button>
+              <Button onClick={handleDeleteComment}>delete</Button>
+            </ButtonsWrapper>
+          </>
+        )}
+      </Container>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   display: flex;
@@ -44,52 +91,5 @@ const Text = styled.div`
   background-color: #f3f3f3;
   border-radius: 3px;
 `;
-
-interface IComments {
-  id: string;
-  cardId: string;
-  text: string;
-};
-
-const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
-  const dispatch = useAppDispatch();
-  const { toggle, setTrue, setFalse } = useToggle(false);
-  const { register, handleSubmit, reset } = useForm();
-
-  const handleDeleteComment = () => {
-    dispatch(deleteComment({ id, cardId }));
-  };
-
-  const handleEditComment = (data: object) => {
-    dispatch(editComment({ id, cardId, ...data }));
-    setFalse();
-    reset();
-  };
-
-  return (
-    <Wrapper>
-      <Avatar />
-      <Container onSubmit={handleSubmit(handleEditComment)}>
-        {toggle ? (
-          <>
-            <Input {...register("edited")} placeholder="enter comment" autoFocus />
-            <ButtonsWrapper>
-              <Button onClick={handleSubmit(handleEditComment)}>save</Button>
-              <Button onClick={() => { setFalse(); reset() }}>close</Button>
-            </ButtonsWrapper>
-          </>
-        ) : (
-          <>
-            <Text>{text}</Text>
-            <ButtonsWrapper>
-              <Button onClick={setTrue}>edit</Button>
-              <Button onClick={handleDeleteComment}>delete</Button>
-            </ButtonsWrapper>
-          </>
-        )}
-      </Container>
-    </Wrapper>
-  );
-};
 
 export default Comments;

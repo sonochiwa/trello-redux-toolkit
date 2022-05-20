@@ -4,6 +4,37 @@ import { useForm } from 'react-hook-form';
 import { useAppDispatch, useAppSelector } from '../hook';
 import { login } from '../store/board-slice';
 
+interface ILogin {
+  username: string;
+  data: object;
+};
+
+const Name: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const { register, handleSubmit } = useForm<ILogin>();
+  const username = useAppSelector(state => state.board.username);
+
+  const onSubmit = (data: ILogin) => {
+    dispatch(login(data))
+  };
+
+  if (username) {
+    return null;
+  }
+
+  return (
+    <Overlay>
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          {...register("username")}
+          placeholder="enter username"
+        />
+        <Button type="submit">Submit</Button>
+      </Form>
+    </Overlay>
+  );
+};
+
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -23,31 +54,5 @@ const Form = styled.form`
   background-color: white;
   grid-gap: 10px;
 `;
-
-const Name: React.FC = () => {
-  const dispatch = useAppDispatch();
-  const username = useAppSelector(state => state.board.username);
-  const { register, handleSubmit } = useForm();
-
-  const onSubmit = (data: object) => {
-    dispatch(login((data)))
-  };
-
-  if (username) {
-    return null;
-  }
-  
-  return (
-    <Overlay>
-      <Form onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          {...register("username")}
-          placeholder="enter username"
-        />
-        <Button type="submit">Submit</Button>
-      </Form>
-    </Overlay>
-  );
-};
 
 export default Name;

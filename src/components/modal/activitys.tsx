@@ -2,7 +2,37 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { Input } from '../../global-style';
 import { useAppDispatch } from '../../hook';
-import { sendComment } from '../../store/board-slice';
+import { addComment } from '../../store/board-slice';
+
+interface IActivitys {
+  cardId: string;
+}
+
+const Activitys: React.FC<IActivitys> = ({ cardId }) => {
+  const { handleSubmit, reset, register } = useForm();
+  const dispatch = useAppDispatch();
+
+  const handleAddComment = (data: object) => {
+    dispatch(addComment({ cardId, ...data }))
+    reset()
+  };
+
+  return (
+    <Activity onSubmit={handleSubmit(handleAddComment)}>
+      Activity
+      <CommentWrapper>
+        <Avatar />
+        <Input
+          {...register("activitys")}
+          autoFocus
+          placeholder="Write a comment"
+        />
+        <Button type="submit">Send</Button>
+      </CommentWrapper>
+      <Hr />
+    </Activity>
+  );
+};
 
 const Activity = styled.form`
   margin-top: 18px;
@@ -29,11 +59,11 @@ const Avatar = styled.img`
 `;
 
 const Button = styled.button`
+  cursor: pointer;
   color: white;
   background-color: #7649bb;
   font-weight: bold;
   border-radius: 5px;
-  cursor: pointer;
   padding: 0 30px;
   line-height: 30px;
   height: 30px;
@@ -50,36 +80,6 @@ const Hr = styled.div`
   background-color: #dddddd;
   margin-top: 18px;
 `;
-
-interface IActivitys {
-  cardId: string;
-}
-
-const Activitys: React.FC<IActivitys> = ({ cardId }) => {
-  const { handleSubmit, reset, register } = useForm();
-  const dispatch = useAppDispatch();
-
-  const handleSendComment = (data: object) => {
-    dispatch(sendComment({ cardId, ...data }))
-    reset()
-  };
-
-  return (
-    <Activity onSubmit={handleSubmit(handleSendComment)}>
-      Activity
-      <CommentWrapper>
-        <Avatar />
-        <Input
-          {...register("activitys")}
-          autoFocus
-          placeholder="Write a comment"
-        />
-        <Button type="submit">Send</Button>
-      </CommentWrapper>
-      <Hr />
-    </Activity>
-  );
-};
 
 export default Activitys;
 

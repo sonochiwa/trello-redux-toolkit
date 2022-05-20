@@ -2,7 +2,48 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import { useAppDispatch } from '../../hook';
 import { useToggle } from '../../lib/hooks';
-import { editDescription } from '../../store/board-slice';
+import { updateDescription } from '../../store/board-slice';
+
+interface IDescription {
+  id: string;
+  description: string;
+};
+
+const Descripton: React.FC<IDescription> = ({ id, description }) => {
+  const { toggle, setTrue, setFalse } = useToggle(false);
+  const { register, handleSubmit, reset } = useForm();
+  const dispatch = useAppDispatch();
+
+  const handleUpdateDescription = (data: object) => {
+    dispatch(updateDescription({ id, ...data }));
+    setFalse();
+    reset();
+  };
+
+  return (
+    <Description onSubmit={handleSubmit(handleUpdateDescription)}>
+      Description
+      {toggle ? (
+        <>
+          <Textarea
+            {...register("description")}
+            autoFocus
+            placeholder="Add a more detailed description..."
+          />
+          <>
+            <Button type="submit">Save</Button>
+            <Button onClick={() => { setFalse(); reset() }}>Close</Button>
+          </>
+        </>
+      ) : (
+        <Text onClick={setTrue}>
+          {description || "Add a more detailed description..."}
+        </Text>
+      )
+      }
+    </Description >
+  );
+};
 
 const Description = styled.form`
   font-size: 18px;
@@ -46,46 +87,5 @@ const Button = styled.button`
     background-color: #57299c;
   };
 `;
-
-interface IDescription {
-  id: string;
-  description: string;
-};
-
-const Descripton: React.FC<IDescription> = ({ id, description }) => {
-  const { toggle, setTrue, setFalse } = useToggle(false);
-  const { register, handleSubmit, reset } = useForm();
-  const dispatch = useAppDispatch();
-
-  const handleEditDescription = (data: object) => {
-    dispatch(editDescription({ id, ...data }));
-    setFalse();
-    reset();
-  };
-
-  return (
-    <Description onSubmit={handleSubmit(handleEditDescription)}>
-      Description
-      {toggle ? (
-        <>
-          <Textarea
-            {...register("description")}
-            autoFocus
-            placeholder="Add a more detailed description..."
-          />
-          <>
-            <Button type="submit">Save</Button>
-            <Button onClick={() => { setFalse(); reset() }}>Close</Button>
-          </>
-        </>
-      ) : (
-        <Text onClick={setTrue}>
-          {description || "Add a more detailed description..."}
-        </Text>
-      )
-      }
-    </Description >
-  );
-};
 
 export default Descripton;

@@ -3,7 +3,45 @@ import Activitys from './activitys';
 import Comments from './comments';
 import Descripton from './description';
 import { useAppSelector } from '../../hook';
-import './modal.css';
+
+interface IModal {
+  id: string;
+  title: string;
+  listTitle: string;
+  handleClose: any;
+  description: string;
+  comments: any[];
+}
+
+const Modal: React.FC<IModal> = ({ id, title, listTitle, handleClose, description, comments }) => {
+  const state = useAppSelector(state => state.board);
+  
+  const closeModal = (e: any) => {
+    if (e.key === 'Escape') {
+      handleClose();
+    };
+  };
+
+  return (
+    <Wrapper onKeyDown={closeModal} >
+      <Content>
+        <Header>
+          <Title>
+            {title}
+            <Subtitle>in {listTitle}</Subtitle>
+          </Title>
+          <Close onClick={handleClose}>&#10006;</Close>
+        </Header>
+        <Main>
+          <Author>author: {state.username}</Author>
+          <Descripton description={description} id={id} />
+          <Activitys cardId={id} />
+          {comments.map((comment: any) => <Comments key={comment.id} id={comment.id} text={comment.text} cardId={id} />)}
+        </Main>
+      </Content>
+    </Wrapper>
+  );
+};
 
 const Wrapper = styled.div`
   position: fixed;
@@ -54,44 +92,5 @@ const Author = styled.div`
   font-size: 14px;
   color: #686868;
 `;
-
-interface IModal {
-  id: string;
-  title: string;
-  listTitle: string;
-  handleClose: any;
-  description: string;
-  comments: any[];
-}
-
-const Modal: React.FC<IModal> = ({ id, title, listTitle, handleClose, description, comments }) => {
-
-  const state = useAppSelector(state => state.board);
-  const closeModal = (e: any) => {
-    if (e.key === 'Escape') {
-      handleClose();
-    };
-  };
-
-  return (
-    <Wrapper onKeyDown={closeModal} >
-      <Content>
-        <Header>
-          <Title>
-            {title}
-            <Subtitle>in {listTitle}</Subtitle>
-          </Title>
-          <Close onClick={handleClose}>&#10006;</Close>
-        </Header>
-        <Main>
-          <Author>author: {state.username}</Author>
-          <Descripton description={description} id={id} />
-          <Activitys cardId={id} />
-          {comments.map((comment: any) => <Comments key={comment.id} id={comment.id} text={comment.text} cardId={id} />)}
-        </Main>
-      </Content>
-    </Wrapper>
-  );
-};
 
 export default Modal;
