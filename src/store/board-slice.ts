@@ -1,62 +1,60 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import initialState from './initial-state';
 import { v4 as uuidv4 } from 'uuid';
-// import { ILogin, IDeleteList } from './action-types';
+import { ILogin, IAddList, IDeleteList, IAddCard, IDeleteCard, IUpdateCard, IUpdateTitle, IUpdateDescription, IAddComment, IDeleteComment, IUpdateComment } from './types';
 
 const boardSlice = createSlice({
   name: 'board',
   initialState,
   reducers: {
 
-    // login(state, action: PayloadAction<ILogin>) {
-    login(state, action) {
-      state.username = action.payload.username
+    login(state, action: PayloadAction<ILogin>) {
+      state.username = action.payload.username;
     },
 
-    addList(state, action: PayloadAction<any>) {
+    addList(state, action: PayloadAction<IAddList>) {
       state.lists.push({
-        ...action.payload,
         id: uuidv4(),
+        title: action.payload.title,
         cards: []
       });
     },
 
-    // deleteList(state, action: PayloadAction<IDeleteList>) {
-    deleteList(state, action) {
-      state.lists = state.lists.filter(list => list.id !== action.payload);
+    deleteList(state, action: PayloadAction<IDeleteList>) {
+      state.lists = state.lists.filter(list => list.id !== action.payload.id);
     },
 
-    addCard(state, action) {
+    addCard(state, action: PayloadAction<IAddCard>) {
       if (action.payload.title !== "") {
         state.lists.find(list => list.id === action.payload.id)?.cards.push({
           ...action.payload,
           id: uuidv4(),
-          comments: []
+          comments: [],
         })
       }
     },
 
-    deleteCard(state, action) {
+    deleteCard(state, action: PayloadAction<IDeleteCard>) {
       for (const list of state.lists) {
         list.cards = list.cards.filter(card => card.id !== action.payload.id)
       }
     },
 
-    updateCard(state, action: PayloadAction<any>) {
+    updateCard(state, action: PayloadAction<IUpdateCard>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.id) {
-            card.title = action.payload.card
+            card.title = action.payload.title
           }
         }
       }
     },
 
-    updateTitle(state, action: PayloadAction<any>) {
+    updateTitle(state, action: PayloadAction<IUpdateTitle>) {
       state.lists = state.lists.map(list => list.id === action.payload.id ? { ...list, ...action.payload } : list)
     },
 
-    updateDescription(state, action: PayloadAction<any>) {
+    updateDescription(state, action: PayloadAction<IUpdateDescription>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.id) {
@@ -66,7 +64,7 @@ const boardSlice = createSlice({
       }
     },
 
-    addComment(state, action: PayloadAction<any>) {
+    addComment(state, action: PayloadAction<IAddComment>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.cardId) {
@@ -81,7 +79,7 @@ const boardSlice = createSlice({
       }
     },
 
-    deleteComment(state, action: PayloadAction<any>) {
+    deleteComment(state, action: PayloadAction<IDeleteComment>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           if (card.id === action.payload.cardId) {
@@ -91,12 +89,12 @@ const boardSlice = createSlice({
       }
     },
 
-    updateComment(state, action: PayloadAction<any>) {
+    updateComment(state, action: PayloadAction<IUpdateComment>) {
       for (const list of state.lists) {
         for (const card of list.cards) {
           for (const comment of card.comments) {
             if (comment.id === action.payload.id) {
-              comment.text = action.payload.edited
+              comment.text = action.payload.text
             }
           }
         }

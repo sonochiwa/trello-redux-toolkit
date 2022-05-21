@@ -7,7 +7,7 @@ const AddList: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const handleAddList = () => {
-    dispatch(addList({ title: '[Title]' }));
+    dispatch(addList({ title: 'title' }));
   };
 
   return (

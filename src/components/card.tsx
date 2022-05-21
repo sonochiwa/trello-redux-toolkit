@@ -5,6 +5,7 @@ import { useAppDispatch } from '../hook';
 import { useForm } from 'react-hook-form';
 import { useToggle } from '../lib/hooks';
 import Modal from './modal/modal';
+import { IUpdateCard } from './../store/types'
 
 interface ICard {
   id: string;
@@ -18,13 +19,13 @@ const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) 
   const dispatch = useAppDispatch();
   const editor = useToggle(false);
   const { toggle, setTrue, setFalse } = useToggle(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<IUpdateCard>();
 
   const onDeleteCard = () => {
     dispatch(deleteCard({ id }));
   };
 
-  const onUpdateCard = (data: object) => {
+  const onUpdateCard = (data: Omit<IUpdateCard, 'id'>) => {
     dispatch(updateCard({ id, ...data }));
     editor.setFalse();
     reset();
@@ -36,7 +37,7 @@ const Card: React.FC<ICard> = ({ id, title, listTitle, description, comments }) 
         {editor.toggle ?
           (
             <Input
-              {...register("card")}
+              {...register("title")}
               onBlur={editor.setFalse}
               autoFocus
               placeholder="enter new card text"

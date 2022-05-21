@@ -16,7 +16,7 @@ const Title: React.FC<ITitle> = ({ id, title }) => {
   const { register, handleSubmit, reset } = useForm();
 
   const handleDeleteList = () => {
-    dispatch(deleteList(id));
+    dispatch(deleteList({ id }));
   };
 
   const onUpdateTitle = (data: object) => {

@@ -4,6 +4,7 @@ import { Input } from '../../global-style';
 import { useAppDispatch } from '../../hook';
 import { useToggle } from '../../lib/hooks';
 import { deleteComment, updateComment } from '../../store/board-slice';
+import { IUpdateComment } from './../../store/types';
 
 interface IComments {
   id: string;
@@ -14,13 +15,13 @@ interface IComments {
 const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
   const dispatch = useAppDispatch();
   const { toggle, setTrue, setFalse } = useToggle(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<IUpdateComment>();
 
   const handleDeleteComment = () => {
     dispatch(deleteComment({ id, cardId }));
   };
 
-  const handleUpdateComment = (data: object) => {
+  const handleUpdateComment = (data: Omit<IUpdateComment, 'id' | 'cardId'>) => {
     dispatch(updateComment({ id, cardId, ...data }));
     setFalse();
     reset();
@@ -32,7 +33,7 @@ const Comments: React.FC<IComments> = ({ id, cardId, text }) => {
       <Container onSubmit={handleSubmit(handleUpdateComment)}>
         {toggle ? (
           <>
-            <Input {...register("edited")} placeholder="enter comment" autoFocus />
+            <Input {...register("text")} placeholder="enter comment" autoFocus />
             <ButtonsWrapper>
               <Button onClick={handleSubmit(handleUpdateComment)}>save</Button>
               <Button onClick={() => { setFalse(); reset() }}>close</Button>

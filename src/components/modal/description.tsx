@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useAppDispatch } from '../../hook';
 import { useToggle } from '../../lib/hooks';
 import { updateDescription } from '../../store/board-slice';
+import { IUpdateDescription } from './../../store/types'
 
 interface IDescription {
   id: string;
@@ -11,10 +12,10 @@ interface IDescription {
 
 const Descripton: React.FC<IDescription> = ({ id, description }) => {
   const { toggle, setTrue, setFalse } = useToggle(false);
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm<IUpdateDescription>();
   const dispatch = useAppDispatch();
 
-  const handleUpdateDescription = (data: object) => {
+  const handleUpdateDescription = (data: Omit<IUpdateDescription, 'id'>) => {
     dispatch(updateDescription({ id, ...data }));
     setFalse();
     reset();

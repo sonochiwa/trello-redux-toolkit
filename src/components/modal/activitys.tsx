@@ -3,16 +3,17 @@ import styled from 'styled-components';
 import { Input } from '../../global-style';
 import { useAppDispatch } from '../../hook';
 import { addComment } from '../../store/board-slice';
+import { IAddComment } from './../../store/types';
 
 interface IActivitys {
   cardId: string;
 }
 
 const Activitys: React.FC<IActivitys> = ({ cardId }) => {
-  const { handleSubmit, reset, register } = useForm();
+  const { handleSubmit, reset, register } = useForm<IAddComment>();
   const dispatch = useAppDispatch();
 
-  const handleAddComment = (data: object) => {
+  const handleAddComment = (data: Omit<IAddComment, 'cardId'>) => {
     dispatch(addComment({ cardId, ...data }))
     reset()
   };

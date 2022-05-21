@@ -6,7 +6,9 @@ import { login } from '../store/board-slice';
 
 interface ILogin {
   username: string;
-  data: object;
+  data: {
+    username: string;
+  };
 };
 
 const Name: React.FC = () => {

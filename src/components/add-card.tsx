@@ -3,16 +3,17 @@ import { useForm } from "react-hook-form";
 import { Input, Button } from '../global-style';
 import { useAppDispatch } from '../hook';
 import { addCard } from '../store/board-slice';
+import { IAddCard } from './../store/types';
 
-interface IAddCard {
-  id: string
+interface IAddCardComponent {
+  id: string;
 };
 
-const AddCard: React.FC<IAddCard> = ({ id }) => {
-  const { register, handleSubmit, reset, formState: { errors } } = useForm();
+const AddCard: React.FC<IAddCardComponent> = ({ id }) => {
+  const { register, handleSubmit, reset, formState: { errors } } = useForm<IAddCard>();
   const dispatch = useAppDispatch();
 
-  const AddNewCard = (data: object) => {
+  const AddNewCard = (data: Omit<IAddCard, 'id'>) => {
     dispatch(addCard({ id, ...data }));
     reset();
   };

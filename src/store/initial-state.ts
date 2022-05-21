@@ -1,4 +1,4 @@
-import { IInitialState } from './action-types'
+import { IInitialState } from './types'
 
 const initialState: IInitialState = {
   lists: [
