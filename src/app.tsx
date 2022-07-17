@@ -9,7 +9,7 @@ const App = () => {
       <Name />
       <Board />
     </>
-  )
+  );
 };
 
 export default App;
